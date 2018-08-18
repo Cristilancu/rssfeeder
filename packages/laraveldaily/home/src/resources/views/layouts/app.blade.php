@@ -4,9 +4,6 @@
 
 <body>
     <div id="main-wrapper">
-        <header id="header">
-          @include('home::layouts.header')
-        </header>
         
         @yield('content')
         
