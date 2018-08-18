@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5bca48e56bbf3a25645858fcab9c285",
+    "content-hash": "8c7f1b4e3b0c96d2268788e5ef33a337",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -654,6 +654,34 @@
                 "psysh"
             ],
             "time": "2018-05-17T13:42:07+00:00"
+        },
+        {
+            "name": "laraveldaily/home",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "packages/laraveldaily/home",
+                "reference": "a4d5c72ddaed85dc258ffccfbf0d90e3e55617df",
+                "shasum": null
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laraveldaily\\Home\\HomeServiceProvider"
+                    ]
+                }
+            },
+            "authors": [
+                {
+                    "name": "Joao",
+                    "email": "Joao@working.com"
+                }
+            ],
+            "description": "Demo-package to show feed",
+            "transport-options": {
+                "symlink": true
+            }
         },
         {
             "name": "league/flysystem",
@@ -3992,7 +4020,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "laraveldaily/home": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
