@@ -1,6 +1,12 @@
 @extends('home::layouts.app')
 
 @section ('content')
+  <style type="text/css">
+    .article-feed {
+      height: 900px;
+      overflow-y: scroll;
+    }
+  </style>
   <header id="header">
     <div class="header-top-bar">
       <div class="container">
@@ -262,14 +268,6 @@
 
                      </div>
 
-                      <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                      </ul>
-
                   </div> <!-- end .change-view -->
 
                   <div class="row clearfix">
@@ -277,7 +275,7 @@
 
                       <div class="single-product">
                         <figure>
-                          <img src="img/content/post-img-10.jpg" alt="">
+                          <img src="{{asset('img/content/post-img-10.jpg')}}" alt="">
 
                           <div class="rating">
 
@@ -316,18 +314,6 @@
 
                       </div> <!-- end .single-product -->
                     </div> <!-- end .col-sm-4 grid layout -->
-
-                    <div class="pagination-center">
-
-                      <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                      </ul>
-
-                    </div>
 
                   </div> <!-- end .row -->
                 </div> <!-- end .tabe-pane -->
@@ -354,74 +340,40 @@
 
                      </div>
 
-                      <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                      </ul>
-
                   </div> <!-- end .change-view -->
 
                   <div class="row clearfix">
-                    
-                    <div class="col-sm-4 col-xs-6">
+                    <div class="col-sm-4 col-xs-6 article-feed">
+                    @foreach($feed as $item)
+                    <article class="post">
+                        <div class="single-product">
+                          <figure>
+                            <img src="{{asset('img/content/post-img-1.jpg')}}" alt="">
 
-                      <div class="single-product">
-                        <figure>
-                          <img src="img/content/post-img-1.jpg" alt="">
+                            <figcaption>
+                              <div class="bookmark">
+                                <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
+                              </div>
 
-                          <div class="rating">
+                              <div class="read-more">
+                                <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
+                              </div>
 
-                            <ul class="list-inline">
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-half-o"></i></a></li>
-                              <li><a href="#"><i class="fa fa-star-o"></i></a></li>
-                            </ul>
+                            </figcaption>
+                          </figure>
 
-                            <p>Featured</p>
+                          <h4><a href="{{$item['link']}}">{{$item['title']}}</a></h4>
 
-                          </div> <!-- end .rating -->
+                          <h5><em>Posted on {{$item['date']}}</em></h5>
 
-                          <figcaption>
-                            <div class="bookmark">
-                              <a href="#"><i class="fa fa-bookmark-o"></i> Bookmark</a>
-                            </div>
+                          <p>{{$item['desc']}}</p>
 
-                            <div class="read-more">
-                              <a href="#"><i class="fa fa-angle-right"></i> Read More</a>
-                            </div>
+                          <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
 
-                          </figcaption>
-                        </figure>
-
-                        <h4><a href="#">Old Bookman's</a></h4>
-
-                        <h5><a href="#">Category</a>, <a href="#">Another Category</a></h5>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Proin nibh augue, suscipit a,
-                          scelerisque sed, lacinia in, mi. Cras vel lorem.</p>
-
-                        <a class="read-more" href="#"><i class="fa fa-angle-right"></i>Read More</a>
-
-                      </div> <!-- end .single-product -->
-                    </div> <!-- end .col-sm-4 grid layout -->
-
-                    <div class="pagination-center">
-
-                      <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                      </ul>
-
+                        </div> <!-- end .single-product -->
+                    </article>
+                    @endforeach
                     </div>
-
                   </div> <!-- end .row -->
                 </div> <!-- end .tabe-pane -->
 
@@ -608,5 +560,35 @@
       </div> <!-- end .row -->
     </div> <!-- end .container -->
   </div>  <!-- end #page-content -->
+  <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    var limit = 10;
+    document.querySelector('.article-feed').addEventListener("scroll",function(event) {
+      var load_url = 'feed_load/' + <?php echo $id; ?> + '/' + limit;
+      var section = $('.article-feed > article').height();
+      var offsetHeight = this.offsetHeight;
+      var scrollHeight = this.scrollHeight;
+      var scrollTop = this.scrollTop;
+
+      if((scrollHeight - offsetHeight - scrollTop) == 0) {
+        $.ajax({
+            type: 'POST',
+            url: load_url,
+            success: function(result){
+              limit += 5;
+              var items = JSON.parse(result);
+              if (items.length > 0) {
+                for(var i in items) {
+                  var html = "<article class=\"post\"><div class=\"single-product\"><figure><img src=\"{{asset('img/content/post-img-1.jpg')}}\" alt=\"\"><figcaption><div class=\"bookmark\"><a href=\"#\"><i class=\"fa fa-bookmark-o\"></i> Bookmark</a></div><div class=\"read-more\"><a href=\"#\"><i class=\"fa fa-angle-right\"></i> Read More</a></div></figcaption></figure><h4><a href=\""+items[i].link+"\">"+items[i].title+"</a></h4><h5><em>Posted on "+items[i].date+"</em></h5><p>"+items[i].desc+"</p><a class=\"read-more\" href=\"#\"><i class=\"fa fa-angle-right\"></i>Read More</a></div></article>";
+                  $(".article-feed").append(html);
+                }
+              }
+            }
+        });
+      }
+    });
+  </script>
 
 @endsection

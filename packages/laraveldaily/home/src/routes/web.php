@@ -15,3 +15,5 @@ Route::get('feeder',
   'laraveldaily\home\HomeController@index');
 Route::get('feed/{id}', 
   'laraveldaily\home\HomeController@detail');
+Route::post('feed/feed_load/{id}/{limit}', 
+  'laraveldaily\home\HomeController@load');
