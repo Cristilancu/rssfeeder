@@ -354,7 +354,48 @@
                   <div id="slider-range-min"></div>
                 </div>  <!-- end #distance-range -->
               </div> <!-- end .custom-search -->
+              <div class="newfeed">
+                  <form class="form" action="{{ url('feeder') }}" method="post"
+                      enctype="multipart/form-data">
+                  	<div class="row">
+					  <div class="col-md-12">
+					    <div class="form-group">
+					        <label for="source">dsfasdfs</label>
+					        <input type="text" name="source" class="form-control" value="" required>
+					    </div>
+					  </div>
+					</div>
 
+                  	<div class="row">
+					  <div class="col-md-12">
+					    <div class="form-group">
+					        <label for="url">dsfasdfs</label>
+					        <input type="text" name="url" class="form-control" value="" required>
+					    </div>
+					  </div>
+					</div>
+
+                  	<div class="row">
+					  <div class="col-md-12">
+	                    <div class="select-country">
+	                      <label>Category</label>
+
+	                      <select name="category" class="form-control" data-placeholder="-Select-">
+		                    @foreach($categories as $category)
+		                        <option value="{{$category->category}}">{{$category->category}}</option>
+		                    @endforeach
+	                      </select>
+
+	                    </div> <!-- end .select-country -->
+					  </div>
+					</div>
+
+					<div class="form-group">
+					    <input type="submit" class="btn btn-primary" value="ghj">
+					</div>
+
+                  </form>
+              </div>
               <!-- Category accordion -->
               <div id="categories">
                 <div class="accordion">

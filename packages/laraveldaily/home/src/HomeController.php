@@ -4,12 +4,19 @@ namespace Laraveldaily\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
-
+use Auth;
+use App\User;
 class HomeController extends Controller
 {
     public function index() {
+	    if(Auth::check()){
+	      $user = Auth::user();
+	    }else{
+	      $user = new User();
+	    }
 
       	if (!Schema::hasTable('feeds')) {
         	Schema::create('feeds', function ($table) {
@@ -20,6 +27,14 @@ class HomeController extends Controller
         	  $table->timestamps();
         	});
       	}
+      	if (!Schema::hasTable('histories')) {
+        	Schema::create('histories', function ($table) {
+        	  $table->increments('id');
+        	  $table->integer('user_id');
+        	  $table->integer('feed_id');
+        	  $table->timestamps();
+        	});
+      	}
 
       	$rows = DB::table('feeds')->orderBy('category','asc')->get();
       	$categories = DB::table('feeds')->groupBy('category')->select('category')->get();
@@ -27,6 +42,18 @@ class HomeController extends Controller
     }
 
     public function detail($id) {
+      	$confirm = DB::table('histories')->where('user_id', 12)->get();
+    	if (count($confirm) > 0) {
+    		DB::table('histories')
+            ->where('user_id', 12)
+            ->update(['feed_id' => $id]);
+    	} else {
+    		DB::table('histories')->insert(
+			    ['user_id' => 12, 'feed_id' => $id]
+			);
+    	}
+    	
+
       	$detail = DB::table('feeds')->where('id', $id)->get();
       	// $detail = DB::table('feeds')->where('id',1299)->get();
       	// $detail = DB::table('feeds')->where('id',777)->get();768
@@ -92,5 +119,11 @@ class HomeController extends Controller
 			array_push($feed, $item);
 		}
 		return json_encode($feed);
+    }
+
+    public function add(Request $request) {
+		$data = array('source' => $request->source, "url" => $request->url, "category" => $request->category);
+		DB::table('feeds')->insert($data);
+		return redirect('feeder');
     }
 }
