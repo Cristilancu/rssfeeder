@@ -26,4 +26,4 @@ This Laravel5 package is RSS Feeder package such as Facebook newsfeed.
 
 Now you can see by typing yourwebsite.com/feeder in url window.
 
-Done!
+<b>Great Job!!!</b>
