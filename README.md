@@ -1,11 +1,11 @@
-# rssfeeder
+# Rss Feeder
 Laravel Package project
-This Laravel5 package is RSS Feeder package such as Facebook
+This Laravel5 package is RSS Feeder package such as Facebook newsfeed.
 
 # Installation
-First, copy package folder in root folder of your laravel5 project
-Second, add some codes in your main composer.json.
-    "repositories": [
+<em>First, copy package folder in root folder of your laravel5 project</em> <p>
+<em>Second, add some codes in your main composer.json.</em> </br>
+  <pre>  "repositories": [
         {
             "type": "path",
             "url": "packages/laraveldaily/home",
@@ -21,8 +21,8 @@ Second, add some codes in your main composer.json.
 	"psr-4": {
 	    ...
             "Laraveldaily\\Home\\": "packages/laraveldaily/home/src/"
-        }
-Then, update composer
+        }</pre><p>
+<em>Then, update composer</em>
 
 Now you can see by typing yourwebsite.com/feeder in url window.
 
